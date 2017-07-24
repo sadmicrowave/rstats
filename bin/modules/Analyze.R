@@ -16,15 +16,14 @@ Analyze <- function(file) {
   
   # create the class initializer with class variables and basic getters/setters
   self = list(
-    file = file
-    ,data = list()
-    ,get = function(x) self[[x]]
+     get = function(x) self[[x]]
     ,set = function(x, value) self[[x]] <<- value
     ,props = list()
+    ,file = file
+    ,data = list()
   )
   
-  
-  self$import = function() {
+  self.import = function() {
     # Import the historical data into an R Data Frame, expecting the data file to be in .csv
     # format, and a header/label row exists, and fields are delimited by commas.
     #---------------------------------------------------------------------------------------
@@ -35,7 +34,7 @@ Analyze <- function(file) {
     assign('data', d, envir=self) 
   }
   
-  self$makeDate = function() {
+  self.makeDate = function() {
     # Make a date column in the main data.frame if not exists, by combining the data frame's Month, Day, and Year columns.
     #---------------------------------------------------------------------------------------
     
@@ -61,9 +60,10 @@ Analyze <- function(file) {
     return(n)
   }
   
-  self$getCommon <- function(data, col, lb=1, ub=3) {
+  self$common <- function(data, col, lb=1, ub=3) {
     ## Determine the 5 most common numbers, in descending order for each vector column
     
+    # param data [vector]: data set of values
     # param col [string]: string containing column reference of data structure
     # param lb [numeric]: lower bounds of returned vector index - default 1
     # param ub [numeric]: upper bounds of returned vector index - default 3
@@ -86,14 +86,19 @@ Analyze <- function(file) {
   #  analyze <- Analyze(file)
   #  analyze$import()
   #  analyze$makeDate()
+  #  ... etc ...
   #
   # Essentially, these are methods we always want to execute when Analyze() is called,
   # versus making the coder remember to call these as well in the main code below.
   
-  self$import()
-  self$makeDate()
-  # ------------------------------------------------------------------------ #
+  self.import()
+  self.makeDate()
   
+  # ---------------------- assign instance variables ----------------------- #
+  # Get the count of the data frame to be analyzed
+  self$count <- if ( length(self$data) > 0 ) NROW(self$data) else 0
+  
+  # ------------------------------------------------------------------------ #
   # This is required at the end of a class formation to ensure the instantiation call
   # (i.e. `analyze <- Analyze(file)` ) receives an object back.  With this return()
   # statement, we are returning the "self" we created previously within the class 

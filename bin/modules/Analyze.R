@@ -1,5 +1,7 @@
 #!/usr/local/bin/R
 
+# -------------------------------- Import Libraries ------------------------------------ #
+# -------------------------------------------------------------------------------------- #
 
 # Class constructor, Analyze will contain all pertinent methods/functions for analyzing
 # the main data set.  This class should contain any "data-crunching" functions, while 
@@ -23,7 +25,7 @@ Analyze <- function(file) {
     ,data = list()
   )
   
-  self.import = function() {
+  import = function() {
     # Import the historical data into an R Data Frame, expecting the data file to be in .csv
     # format, and a header/label row exists, and fields are delimited by commas.
     #---------------------------------------------------------------------------------------
@@ -34,7 +36,7 @@ Analyze <- function(file) {
     assign('data', d, envir=self) 
   }
   
-  self.makeDate = function() {
+  make_date = function() {
     # Make a date column in the main data.frame if not exists, by combining the data frame's Month, Day, and Year columns.
     #---------------------------------------------------------------------------------------
     
@@ -45,7 +47,7 @@ Analyze <- function(file) {
     }
   }
   
-  self$normalDistribution <- function(x, data) {
+  self$normal_distribution <- function(x, data) {
     ## Determine the normal distribution of the passed data vector 
     
     # param x [string|numeric]: value to test against normal distribution curve
@@ -73,7 +75,6 @@ Analyze <- function(file) {
     return( names(sort(summary(as.factor(data[[col]])), decreasing=TRUE)[lb:ub]) )
   }
   
-  
   # ------------------------- Class Closures/Config ------------------------ #
   self <- list2env(self) # sets the class environment, for assign() functions
   class(self) <- "Analyze" # names the class
@@ -89,12 +90,12 @@ Analyze <- function(file) {
   #  ... etc ...
   #
   # Essentially, these are methods we always want to execute when Analyze() is called,
-  # versus making the coder remember to call these as well in the main code below.
+  # versus making the coder remember to call these as well in the main code.
   
-  self.import()
-  self.makeDate()
+  import()
+  make_date()
   
-  # ---------------------- assign instance variables ----------------------- #
+  # ---------------------- Assign Instance Variables ----------------------- #
   # Get the count of the data frame to be analyzed
   self$count <- if ( length(self$data) > 0 ) NROW(self$data) else 0
   
@@ -103,6 +104,6 @@ Analyze <- function(file) {
   # (i.e. `analyze <- Analyze(file)` ) receives an object back.  With this return()
   # statement, we are returning the "self" we created previously within the class 
   # definition areas above.
-  return(self)
+  return( self )
 }
 

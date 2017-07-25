@@ -12,7 +12,7 @@ options(encoding = "UTF-8")
 #
 # ------------------------------ Import Libraries/Modules ------------------------------ #
 # Source additional modules/classes for usage within main
-source("./bin/modules/Construct")
+source("./bin/modules/Construct.R")
 source("./bin/modules/Randomness.R")
 
 

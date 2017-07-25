@@ -25,7 +25,7 @@ Randomness <- function(data) {
     ,data = data
   )
   
-  self$wald_wolfowitz <- function(x) {
+  self$wald_wolfowitz <- function(x, p=FALSE) {
     ## The Wald–Wolfowitz runs test (or simply runs test), named after Abraham Wald and Jacob Wolfowitz, 
     ## is a non-parametric statistical test that checks a randomness hypothesis for a two-valued data sequence. 
     ## More precisely, it can be used to test the hypothesis that the elements of the sequence are mutually independent.
@@ -46,7 +46,7 @@ Randomness <- function(data) {
     #   - var: the variance of the statistic test (not shown on screen).
     #---------------------------------------------------------------------------------------
     
-    return( runs.test( x, plot=TRUE ) )
+    return( runs.test( x, plot=p ) )
   }
   
   

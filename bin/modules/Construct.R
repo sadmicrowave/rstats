@@ -3,11 +3,11 @@
 # -------------------------------- Import Libraries ------------------------------------ #
 # -------------------------------------------------------------------------------------- #
 
-# Class constructor, Analyze will contain all pertinent methods/functions for analyzing
+# Class constructor, Construct will contain all pertinent methods/functions for analyzing
 # the main data set.  This class should contain any "data-crunching" functions, while 
 # other classes could be imported for functions related to plotting, etc.
 
-Analyze <- function(file) {
+Construct <- function(file) {
   
   # The term "self = ..." is important next because it names the internal instance of the class.
   # We need a way, within the class, to reference other class functions and properties.  With "self"
@@ -77,31 +77,31 @@ Analyze <- function(file) {
   
   # ------------------------- Class Closures/Config ------------------------ #
   self <- list2env(self) # sets the class environment, for assign() functions
-  class(self) <- "Analyze" # names the class
+  class(self) <- "Construct" # names the class
   
-  # ----------- Instantiate Analyze class with methods executing ----------- #
+  # ----------- Instantiate Construct class with methods executing ----------- #
   # This section will ensure the following methods/functions are executed upon
-  # class instantiation.  This is so we can simply call `Analyze()` to create the
+  # class instantiation.  This is so we can simply call `Construct()` to create the
   # class, instead of calling the following from outside the class:
   #
-  #  analyze <- Analyze(file)
-  #  analyze$import()
-  #  analyze$makeDate()
+  #  Construct <- Construct(file)
+  #  Construct$import()
+  #  Construct$makeDate()
   #  ... etc ...
   #
-  # Essentially, these are methods we always want to execute when Analyze() is called,
+  # Essentially, these are methods we always want to execute when Construct() is called,
   # versus making the coder remember to call these as well in the main code.
   
   import()
   make_date()
   
   # ---------------------- Assign Instance Variables ----------------------- #
-  # Get the count of the data frame to be analyzed
+  # Get the count of the data frame to be Constructd
   self$count <- if ( length(self$data) > 0 ) NROW(self$data) else 0
   
   # ------------------------------------------------------------------------ #
   # This is required at the end of a class formation to ensure the instantiation call
-  # (i.e. `analyze <- Analyze(file)` ) receives an object back.  With this return()
+  # (i.e. `Construct <- Construct(file)` ) receives an object back.  With this return()
   # statement, we are returning the "self" we created previously within the class 
   # definition areas above.
   return( self )

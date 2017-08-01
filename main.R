@@ -7,13 +7,18 @@
 #options(error=function()traceback(1))
 options(encoding = "UTF-8")
 
+# ------------------------- Set Environment Options ------------------------------------ #
+#options(error=function()traceback(1))
+options(encoding = "UTF-8")
+
 # ----------------------------- Install Required Packages ------------------------------ #
 #
 # ------------------------------ Import Libraries/Modules ------------------------------ #
 # Source additional modules/classes for usage within main
 source(file.path(".","bin","modules","Construct.R")) #./bin/modules/Construct.R"
 source(file.path(".","bin","modules","Randomness.R")) #./bin/modules/Randomness.R"
-
+source("./bin/modules/Construct")
+source("./bin/modules/Randomness.R")
 
 ##############################################################################################
 # ----------------------------------------- MAIN --------------------------------------------#

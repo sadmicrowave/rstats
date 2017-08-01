@@ -90,6 +90,18 @@ Construct <- function(file) {
     }
 
     return( commonalities.df )
+    
+  self$common <- function(data, col, lb=1, ub=3) {
+    ## Determine the 5 most common numbers, in descending order for each vector column
+    
+    # param data [vector]: data set of values
+    # param col [string]: string containing column reference of data structure
+    # param lb [numeric]: lower bounds of returned vector index - default 1
+    # param ub [numeric]: upper bounds of returned vector index - default 3
+    # return [vector]: a vector/array of the most common values found in the data vector
+    #---------------------------------------------------------------------------------------
+    
+    return( names(sort(summary(as.factor(data[[col]])), decreasing=TRUE)[lb:ub]) )
   }
   
   # ------------------------- Class Closures/Config ------------------------ #

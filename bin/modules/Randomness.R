@@ -46,6 +46,9 @@ Randomness <- function(data) {
     #   - var: the variance of the statistic test (not shown on screen).
     #---------------------------------------------------------------------------------------
     
+    # First, sort the run in ascending fashion
+    #x <- sort(x, decreasing=FALSE)
+    
     return( runs.test( x, plot=p ) )
   }
   

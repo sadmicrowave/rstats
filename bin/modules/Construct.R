@@ -62,17 +62,34 @@ Construct <- function(file) {
     return(n)
   }
   
-  self$common <- function(data, col, lb=1, ub=3) {
+  self$common <- function(data, lb=1, ub=5) {
     ## Determine the 5 most common numbers, in descending order for each vector column
     
     # param data [vector]: data set of values
-    # param col [string]: string containing column reference of data structure
     # param lb [numeric]: lower bounds of returned vector index - default 1
     # param ub [numeric]: upper bounds of returned vector index - default 3
-    # return [vector]: a vector/array of the most common values found in the data vector
+    # return [data.frame]: a data.frame of the most common values found in the data set for each ball
     #---------------------------------------------------------------------------------------
-    
-    return( names(sort(summary(as.factor(data[[col]])), decreasing=TRUE)[lb:ub]) )
+
+    # Create the empty data frame for the output
+    commonalities.df <- data.frame()
+
+    # Iterate over each column of data within the larger data set 
+    for (col in names(data)) {
+      # If the column name has the phrase "Num" in it, then we know it is a column of ball numbers we want to use
+      if ( grepl("Num", col) ) {
+        # Create a named vector with the X most commonly found occurrences in the column of data
+        common <- structure( rev(tail(names(sort(table(data[[col]]))),ub)), .Names=c("First.Most", "Second.Most", "Third.Most", "Fourth.Most", "Fifth.Most"))
+        # convert vector to data.frame for appending/binding
+        common <- as.data.frame(t(common))
+        # replace auto created row names with the column names from the loop iteration
+        rownames(common) <- c(col)
+        # Append/bind this new vector to the data.frame buffer made at the beginning
+        commonalities.df <- rbind(commonalities.df, common)
+      }
+    }
+
+    return( commonalities.df )
   }
   
   # ------------------------- Class Closures/Config ------------------------ #
